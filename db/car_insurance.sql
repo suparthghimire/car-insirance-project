@@ -25,6 +25,7 @@ CREATE TABLE
         ),
         valid_till DATETIME,
         amount DECIMAL(10.34, 2),
+        agent_name VARCHAR(255),
         paid_by INT,
         FOREIGN KEY(paid_by) REFERENCES tbl_owner (owner_id),
         car_id INT,
