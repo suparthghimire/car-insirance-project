@@ -66,4 +66,6 @@ CREATE TABLE
         FOREIGN KEY(filed_by) REFERENCES tbl_owner (owner_id),
         insurance_id INT,
         FOREIGN KEY(insurance_id) REFERENCES tbl_insurance (insurance_id),
+        accident_id INT,
+        FOREIGN KEY(accident_id) REFERENCES tbl_accident (accident_id)
     )
