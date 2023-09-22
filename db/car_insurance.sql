@@ -127,3 +127,5 @@ CREATE TABLE
 -- //
 
 -- DELIMITER ;
+
+) 
