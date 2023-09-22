@@ -67,3 +67,36 @@ CREATE TABLE
         insurance_id INT,
         FOREIGN KEY(insurance_id) REFERENCES tbl_insurance (insurance_id),
     )
+
+-- populate the valid_till field when the insurance record is inserted.
+-- CREATE TRIGGER
+--     insurance_valid_till
+-- AFTER INSERT ON
+--     tbl_insurance
+-- FOR EACH ROW
+-- BEGIN
+--     SET NEW.valid_till = DATE_ADD(NOW(), INTERVAL 1 YEAR);
+-- END
+
+-- prevent the deletion of the insured cars
+-- DELIMITER //
+-- CREATE TRIGGER prevent_car_deletion
+-- BEFORE DELETE ON tbl_car
+-- FOR EACH ROW
+-- BEGIN
+--     DECLARE insurance_id INT;
+--     DECLARE insurance_status VARCHAR(255);
+    
+--     SELECT insurance_id, status INTO insurance_id, insurance_status
+--     FROM tbl_insurance 
+--     WHERE car_id = OLD.car_id 
+--     ORDER BY insurance_id DESC 
+--     LIMIT 1;
+    
+--     IF insurance_status = 'CLAIMED' THEN
+--         SIGNAL SQLSTATE '45000'
+--         SET MESSAGE_TEXT = 'Car with insurance ID ' + CAST(insurance_id AS CHAR) + ' has a claimed insurance policy. Deletion allowed.';
+--     END IF;
+-- END;
+-- //
+-- DELIMITER ;
