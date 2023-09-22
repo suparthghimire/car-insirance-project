@@ -8,12 +8,13 @@ CREATE TABLE
         PRIMARY KEY(owner_id)
     )
 
-CREATE TABLE
-    tbl_owner_phone(
-        phone BIGINT,
+CREATE TABLE 
+    tbl_owner_phone (
         owner_id INT,
-        FOREIGN KEY(owner_id) REFERENCES tbl_owner (owner_id)
-    )
+        phone BIGINT,
+        PRIMARY KEY (owner_id, phone),
+        FOREIGN KEY (owner_id) REFERENCES tbl_owner (owner_id)
+)
 
 CREATE TABLE
     tbl_insurance(
