@@ -3,16 +3,32 @@ import os
 from dotenv import load_dotenv
 
 
+# functions
+
+def _exit():
+    print("Exiting... ")
+    exit()
+
+
+menus = [
+    {"label": "Register New Car", "action": lambda: print("Register new car")},
+    {"label": "Register as insurance", "action": lambda: print("Register as insurance")},
+    {"label": "Report accident", "action": lambda: print("Report an accident")},
+    {"label": "Claim Insurance", "action": lambda: print("Claim Insurance")},
+    {"label": "Generate Report", "action": lambda: print("Generate Insurance Report")},
+    {"label": "Exit", "action": _exit},
+]
+
+
+
+
 def menu():
     print ("Welcome to the Car Insurance App. Please select an option:")
-    print("1. Register New Car")
-    print("2. Register as insurance")
-    print("3. Report accident")
-    print("4. Claim Insurance")
-    print("5. Generate Report")
-    print("6. Exit")
+    for i in range(len(menus)):
+        print(str(i+1) + ". " + menus[i]["label"])
     option = input("> ")
-    return option
+
+    return int(option)
 def back():
     print("Press any key to go back")
     input()
@@ -39,24 +55,18 @@ def main():
             # clear screen and show menu
             os.system('cls' if os.name == 'nt' else 'clear')
             option = menu()
-            if option == "1":
-                print("Register New Car")
-            elif option == "2":
-                print("Register as insurance")
-            elif option == "3":
-                print("Report accident")
-            elif option == "4":
-                print("Claim Insurance")
-            elif option == "5":
-                print("Generate Report")
-            elif option == "6":
-                print("Exiting...")
-                exit()
-            else:
+            # see if option is valid
+            if len(menus) < option or option < 1:
                 print("Invalid option")
+                back()
+                continue
+
+            selected_menu = menus[option-1]
+            #execute the action
+            selected_menu["action"]()
             back()
     except Exception as e:
-        print("Error connecting to database: " + str(e))
+        print("Error: " + str(e))
 
 
 main()
