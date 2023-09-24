@@ -153,7 +153,7 @@ INSERT INTO tbl_insurance( valid_till, amount, agent_name, paid_by)
 VALUES(valid_till, amount, agent_name, paid_by);
 END // DELIMITER;
 
-CALL create_insurance('2021-09-01 00:00:00', 10000, 'John Doe', 1);
+CALL create_insurance('2024-09-01 00:00:00', 10000, 'John Doe', 1);
 
 -- ==============================================
 -- Create a stored procedure to insert a new accident
@@ -189,7 +189,7 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insurance is not valid';
 END IF;
 END // DELIMITER;
 
-CALL file_claim(1, 1, 1);
+-- CALL file_claim(1, 1, 1);
 
 -- ==============================================
 -- Create a stored procedure to approve a claim
