@@ -38,9 +38,11 @@ def insertCar(cursor):
     brand = input("Enter car brand: ")
     year = input("Enter car year: ")
     owner_id = input("Enter owner id: ")
+    insurance_id = input("Enter insurance id: ")
 
-    sql = "CALL insert_car(%s, %s, %s, %s, %s)"
-    val = (model, color, brand, year, owner_id)
+
+    sql = "CALL insert_car(%s, %s, %s, %s, %s, %s)"
+    val = (model, color, brand, year, owner_id, insurance_id)
     cursor.execute(sql, val)
     print("Car inserted")
 
@@ -88,36 +90,43 @@ def rejectClaim(cursor):
     sql = "CALL reject_claim(%s)"
     val = (claim_id,)
     cursor.execute(sql, val)
+    print("Claim rejected")
 
 def generateCarOwnerReport(cursor):
     sql = "SELECT * FROM vw_cars_owners"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
+    for row in result:
+        print(row)
 
 def generateCarAccidentReport(cursor):
     sql = "SELECT * FROM vw_accidents_cars"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
+    # print in new line
+    for row in result:
+        print(row)
 
 def generateClaimAccidentReport(cursor):
     sql = "SELECT * FROM vw_claims_accidents"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
+    for row in result:
+        print(row)
 
 def generateSuccessClaimsReport(cursor):
     sql = "SELECT * FROM vw_total_claims"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
+    for row in result:
+        print(row)
 
 def generateSuccessClaimsByAgentReport(cursor):
     sql = "SELECT * FROM vw_successful_claims"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
+    for row in result:
+        print(row)
 
 
 
@@ -150,10 +159,9 @@ menus = [
     {"label": "Insert Owner", "action": insertOwner},
     {"label": "Insert Owner Phone Number", "action": insertOwnerPhoneNumber},
     {"label": "Delete Owner Phone Number", "action": deleteOwnerPhoneNumber},
-    
+    {"label": "Create Insurance", "action": createInsurance},
     {"label": "Insert Car", "action": insertCar},
     
-    {"label": "Create Insurance", "action": createInsurance},
     
     {"label": "Report accident", "action": reportAccident},
     

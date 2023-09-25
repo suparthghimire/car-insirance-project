@@ -4,7 +4,7 @@
 -- Drop a database
 -- ==============================================
 
-DROP DATABASE insurance;
+DROP DATABASE IF EXISTS insurance;
 
 
 -- ==============================================
@@ -126,20 +126,6 @@ END // DELIMITER;
 
 CALL insert_owner('John', 'Doe');
 
--- ==============================================
--- Create a stored procedure to insert a new car
--- ==============================================
-DELIMITER //
-DROP PROCEDURE IF EXISTS insert_car;
-
-CREATE PROCEDURE insert_car(IN model VARCHAR(255), IN color VARCHAR(255), IN brand VARCHAR(255), IN year YEAR, IN owner_id INT)
-BEGIN
-INSERT INTO tbl_car(model, color, brand, year, owner_id)
-VALUES(model, color, brand, year, owner_id);
-END // DELIMITER;
-
-CALL insert_car('Model 3', 'Black', 'Tesla', 2021, 1);
-
 
 -- ==============================================
 -- Create a stored procedure to insert a new insurance
@@ -154,6 +140,21 @@ VALUES(valid_till, amount, agent_name, paid_by);
 END // DELIMITER;
 
 CALL create_insurance('2024-09-01 00:00:00', 10000, 'John Doe', 1);
+
+-- ==============================================
+-- Create a stored procedure to insert a new car
+-- ==============================================
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_car;
+
+CREATE PROCEDURE insert_car(IN model VARCHAR(255), IN color VARCHAR(255), IN brand VARCHAR(255), IN year YEAR, IN owner_id INT, IN insurance_id INT)
+BEGIN
+INSERT INTO tbl_car(model, color, brand, year, owner_id, insurance_id)
+VALUES(model, color, brand, year, owner_id, insurance_id);
+END // DELIMITER;
+
+CALL insert_car('Model 3', 'Black', 'Tesla', 2021, 1, 1);
+
 
 -- ==============================================
 -- Create a stored procedure to insert a new accident
